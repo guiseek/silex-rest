@@ -27,7 +27,8 @@ $app->get('/users/{id}', function ($id) use ($app, $em) {
     );
     $user = $q->getArrayResult();
     if (!$user) {
-        return new Response('Usuário não encontrado', 404); 
+    	$response = array('statuscode' => '404', 'message' => 'Usuário não encontrado');
+        return $app->json($response, 404);
     }
     
     return $app->json($user, 200);
@@ -50,9 +51,11 @@ $app->post('/users', function(Request $request) use ($app, $em) {
         $em->persist($user);
         $em->flush();
 
-        return new Response('Usuário cadastrado', 200);
+    	$response = array('statuscode' => '200', 'message' => 'Usuário cadastrado');
+        return $app->json($response, 200);
     }
-    return new Response('Usuário já existe', 200);
+   	$response = array('statuscode' => '200', 'message' => 'Usuário já existe');
+	return $app->json($response, 200);
 });
 
 $app->put('/users/{id}', function (Request $request, $id) use ($app, $em) {
@@ -63,12 +66,14 @@ $app->put('/users/{id}', function (Request $request, $id) use ($app, $em) {
     $user = $em->getRepository('User\Model\User')->findOneBy(array('id' => $id));
     
     if (!$user) {
-    	return new Response('Usuário não encontrado', 200);
+    	$response = array('statuscode' => '404', 'message' => 'Usuário não encontrado');
+        return $app->json($response, 404);
     }
     
     $user_exists = $em->getRepository('User\Model\User')->findOneBy(array('login' => $login));
     if ($user_exists) {
-    	return new Response('Já existe um usuário com este login', 200);
+    	$response = array('statuscode' => '200', 'message' => 'Já existe um usuário com este login');
+        return $app->json($response, 200);
     }
     
     $user->setName($name);
@@ -78,20 +83,23 @@ $app->put('/users/{id}', function (Request $request, $id) use ($app, $em) {
     $em->persist($user);
     $em->flush();
     
-    return new Response('Usuário alterado', 200);
+   	$response = array('statuscode' => '200', 'message' => 'Usuário alterado');
+	return $app->json($response, 200);
 });
 
 $app->delete('/users/{id}', function ($id) use ($app, $em) {
     $user = $em->getRepository('User\Model\User')->findOneBy(array('id' => $id));
     
     if (!$user) {
-    	return new Response('Usuário não encontrado', 200);
+    	$response = array('statuscode' => '404', 'message' => 'Usuário não encontrado');
+        return $app->json($response, 404);
     }
     
     $em->remove($user);
     $em->flush();
     
-    return new Response('Usuário apagado', 200);
+   	$response = array('statuscode' => '200', 'message' => 'Usuário apagado');
+	return $app->json($response, 200);
 });
 
 $app->before(function (Request $request) {
