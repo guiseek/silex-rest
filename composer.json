@@ -1,0 +1,13 @@
+{
+    "name": "guiseek/silex-rest",
+    "description": "Silex REST",
+    "require": {
+        "silex/silex": "1.0.*",
+        "symfony/http-kernel": "*",
+        "symfony/browser-kit": "*",
+        "symfony/console": "*",
+        "doctrine/dbal": "2.2.*",
+        "doctrine/orm": "*"
+    },
+    "minimum-stability": "dev"
+}
