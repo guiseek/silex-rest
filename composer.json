@@ -7,7 +7,9 @@
         "symfony/browser-kit": "*",
         "symfony/console": "*",
         "doctrine/dbal": "2.2.*",
-        "doctrine/orm": "*"
+        "doctrine/orm": "*",
+        "jdesrosiers/silex-cors-provider": "~0.1",
+        "jms/serializer": "*"
     },
     "minimum-stability": "dev"
 }

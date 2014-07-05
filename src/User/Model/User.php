@@ -2,12 +2,13 @@
 namespace User\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="User")
  */
-class User
+class User implements JsonSerializable
 {
 
     /**
@@ -117,4 +118,12 @@ class User
         $this->updated = \DateTime::createFromFormat('Y-m-d H:i:s', $updated);
     }
 
+    public function jsonSerialize()
+    {
+    	$json = array();
+    	foreach($this as $key => $value) {
+    		$json[$key] = $value;
+    	}
+    	return json_encode($json);
+    }
 }
